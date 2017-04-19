@@ -65,7 +65,7 @@ void updateLedAndBuzzer(void *p) {
 			digitalWrite(RED_PIN, LOW);
 			emergencyBrake = 0;
 		}
-		vTaskDelay(1);
+		vTaskDelay(5);
 	}
 }
 
@@ -123,7 +123,7 @@ void adjustSpeed(void *p) {
 			pxMessage = &message;
 			xQueueSendToBack(xMessageQueue, (void*)&pxMessage, (TickType_t) 1);
 		}
-		vTaskDelay(1);
+		vTaskDelay(5);
 	}
 }
 
