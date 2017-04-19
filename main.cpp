@@ -70,7 +70,7 @@ void updateLedAndBuzzer(void *p) {
 }
 
 void readAndSendSafeDistanceAhead(void *p) {
-	const portTickType xFrequency = 500;
+	const portTickType xFrequency = 400;
 	portTickType xLastWakeTime = 0;
 	int safeDistance, distance;
 	for (;;) {
