@@ -33,6 +33,7 @@ struct Message {
 };
 
 void updateLedAndBuzzer(void *p) {
+	portTickType xRedLedBeginTime;
 	for (;;) {
 		switch (currentSpeed) {
 		case 3:
@@ -56,9 +57,11 @@ void updateLedAndBuzzer(void *p) {
 			digitalWrite(SLOW_PIN, LOW);
 		}
 		tone(BUZZER_PIN, currentSpeed*500+31); // 31Hz is base tone, other speeds vary step 500Hz.
-		if (emergencyBrake) {
+		if (emergencyBrake == 1) {
+			xRedLedBeginTime = xTaskGetTickCount();
 			digitalWrite(RED_PIN, HIGH);
-			vTaskDelay(1000);
+			emergencyBrake = 2;
+		} else if (emergencyBrake == 2 && xTaskGetTickCount() == xRedLedBeginTime+1000) {
 			digitalWrite(RED_PIN, LOW);
 			emergencyBrake = 0;
 		}
